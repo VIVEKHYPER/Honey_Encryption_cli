@@ -37,6 +37,9 @@ def log_in():
             elif choice1 == '3':
                 update_db()
 
+            elif choice1 == '4':
+                delete_db()
+
             elif choice1 == '5':
                 delete_all_db()
                 exit()
@@ -76,6 +79,15 @@ def select_db():
         print("Password = ", row[4], "\n")
 
 
+def delete_db():
+    id = int(input("Enter Id of row to be updated"))
+    sql = 'DELETE FROM ENTRIES WHERE id=?'
+    cur = conn.cursor()
+    cur.execute(sql, (id,))
+    print("Row ", id, " deleted")
+    conn.commit()
+
+
 def delete_all_db():
     try:
         os.remove("test.db")
@@ -102,7 +114,7 @@ def update_db():
     conn.commit()
 
 
-print("Welcome to Honey Encryption")
+print("______________Welcome to Honey Encryption______________")
 if os.path.isfile("test.db"):
     log_in()
 
