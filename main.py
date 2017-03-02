@@ -80,7 +80,7 @@ def select_db():
 
 
 def delete_db():
-    id = int(input("Enter Id of row to be updated"))
+    id = int(input("Enter Id of row to be deleted"))
     sql = 'DELETE FROM ENTRIES WHERE id=?'
     cur = conn.cursor()
     cur.execute(sql, (id,))
