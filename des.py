@@ -25,20 +25,3 @@ def decrypt_file(in_filename, out_filename, chunk_size, key, iv):
                 if len(chunk) == 0:
                     break
                 out_file.write((des3.decrypt(chunk)))
-
-
-'''
-key = 'passwordpassword'
-iv = Random.get_random_bytes(8)
-with open('pubkey.txt', 'r') as f:
-    print('pubkey.txt: %s' % f.read())
-encrypt_file('pubkey.txt', 'to_enc.enc', 8192, key, iv)
-with open('to_enc.enc', 'r',encoding='utf-8', errors='ignore') as f:
-    print('to_enc.enc: %s' % f.read())
-
-
-decrypt_file('to_enc.enc', 'to_enc.dec', 8192, key, iv)
-with open('to_enc.dec', 'r') as f:
-    print('to_enc.dec: %s' % f.read())
-
-'''
