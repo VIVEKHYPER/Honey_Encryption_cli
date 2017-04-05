@@ -11,15 +11,15 @@ from main import log_in, exit_update_db
 from main_Window import Ui_MainWindow
 
 
-class MyMainWindow(QtGui.QMainWindow, Ui_MainWindow):
-    def __init__(self, parent=None):
+class MyMainWindow(QtGui.QMainWindow, Ui_MainWindow):  # Main Window which views entire database
+    def __init__(self, parent=None):  # Initializing main window class in qt
         QtGui.QWidget.__init__(self, parent)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
 
-class MyFakeWindow(QtGui.QMainWindow, Ui_FakeWindow):
-    def __init__(self, parent=None):
+class MyFakeWindow(QtGui.QMainWindow, Ui_FakeWindow):  # Fake Window which views fake database
+    def __init__(self, parent=None):  # Initializing main window class in qt
         QtGui.QWidget.__init__(self, parent)
         self.ui = Ui_FakeWindow()
         self.ui.setupUi(self)
@@ -142,21 +142,22 @@ class Ui_Form(object):
                                         None))
         self.pushButton.setText(_translate("Form", "Abort", None))
         self.pushButton_2.setText(_translate("Form", "Login", None))
-        self.pushButton_2.clicked.connect(lambda: self.onClick(Form))  # uses lambdda function#
-        # QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL(_fromUtf8("clicked()")), self.onClick)
+        self.pushButton_2.clicked.connect(
+            lambda: self.onClick(Form))  # uses lambdda function# activates onClick function when button is clicked
 
     def onClick(self, Form):
-        username = self.lineEdit.text()
-        password = self.lineEdit_2.text()
+        username = self.lineEdit.text()  # Reads username from lineEdit
+        password = self.lineEdit_2.text()  # Reads password from lineEdit
         try:
-            access = log_in(username, password)
-        except ValueError:
+            access = log_in(username, password)  # Login to database and returns access value as '1' if it is success
+        except (ValueError, AttributeError):
             exit_update_db()
             access = log_in(username, password)
+
         if access == 1:
-            self.myapp1 = MyMainWindow()
+            self.myapp1 = MyMainWindow()  # opens main window if access is 1
             self.myapp1.show()
         else:
-            self.myapp1 = MyFakeWindow()
+            self.myapp1 = MyFakeWindow()  # opens fake window if access is 0
             self.myapp1.show()
         Form.close()

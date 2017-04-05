@@ -1,10 +1,7 @@
 import os.path
-####
-# from main_Window import Ui_MainWindow
 import sys
 
 from Create import Ui_Form2
-# from main_Window import Ui_MainWindow
 from HE import Ui_Form
 from PyQt4 import QtGui
 
@@ -21,12 +18,6 @@ class CreateWidget(QtGui.QWidget, Ui_Form):
         QtGui.QWidget.__init__(self, parent)
         self.ui = Ui_Form2()
         self.ui.setupUi(self)
-
-        # QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL(_fromUtf8("clicked()")), self.openMain)
-        # super().pushButton_2.clicked.connect(self.openMain)
-        # def openMain(self):
-        #     self.myapp1 = MyMainWindow()
-        #     self.myapp1.show()
 
 
 if __name__ == "__main__":

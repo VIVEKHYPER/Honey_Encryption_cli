@@ -203,7 +203,7 @@ class Ui_MainWindow(object):
         self.actionAbout.setText(_translate("MainWindow", "About", None))
         self.actionNew_Entry.setText(_translate("MainWindow", "New Entry", None))
         self.actionDelete_Entry.setText(_translate("MainWindow", "Delete Entry", None))
-        self.comboBox.activated[str].connect(self.changetable)
+        self.comboBox.activated[str].connect(self.changetable)  # switches
 
     def __del__(self):
         exit_update_db()
