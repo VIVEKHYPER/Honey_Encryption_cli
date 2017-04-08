@@ -1,5 +1,5 @@
 import random
-
+import nltk
 
 def return_honey():
     words = [line.strip() for line in

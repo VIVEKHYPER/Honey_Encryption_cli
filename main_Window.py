@@ -42,6 +42,7 @@ class Ui_MainWindow(object):
         self.line.setObjectName(_fromUtf8("line"))
         self.verticalLayout_5.addWidget(self.line)
         self.label = QtGui.QLabel(self.centralwidget)
+
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)

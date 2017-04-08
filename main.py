@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 from __future__ import division, absolute_import, print_function
+from Encoder import gen_honey
 
 import ast
 import errno
@@ -204,12 +205,23 @@ def log_in(user, pas):
     else:  # If enteres  password is wrong deny access by generating honeywords
         print("Access Denied")
         copyfile('test.db', 'fake.db')
+        bstring = sha[0:30]
+        adder = sha[30:57]
+        hex_str = bstring
+        hex_int = int(hex_str, 16)
+        bstring2 = hex_int + 0x200
+
+        hex_str = adder
+        hex_int = int(hex_str, 16)
+        adder2 = hex_int + 0x200
         conn = sqlite3.connect('fake.db')
         cursor = conn.execute("SELECT id, password  FROM INTERNET")
+        add = bstring2
         i = 0
         for row in cursor:
             i += 1
-            pas = return_honey()
+            pas = gen_honey(add)
+            add = add + adder2
             sql = (' UPDATE INTERNET\n'
                    '                  SET password = ?\n'
                    '                  WHERE id = ?')
@@ -220,7 +232,8 @@ def log_in(user, pas):
         i = 0
         for row in cursor:
             i += 1
-            pas = return_honey()
+            pas = gen_honey(add)
+            add = add + adder2
             sql = (' UPDATE EMAILS\n'
                    '                  SET password = ?\n'
                    '                  WHERE id = ?')
@@ -231,7 +244,8 @@ def log_in(user, pas):
         i = 0
         for row in cursor:
             i += 1
-            pas = return_honey()
+            pas = gen_honey(add)
+            add = add + adder2
             sql = (' UPDATE PINS\n'
                    '                  SET password = ?\n'
                    '                  WHERE id = ?')
@@ -242,7 +256,8 @@ def log_in(user, pas):
         i = 0
         for row in cursor:
             i += 1
-            pas = return_honey()
+            pas = gen_honey(add)
+            add = add + adder2
             sql = (' UPDATE OTHERS\n'
                    '                  SET password = ?\n'
                    '                  WHERE id = ?')
