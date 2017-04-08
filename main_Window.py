@@ -72,6 +72,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_6.addLayout(self.verticalLayout_5)
         self.verticalLayout = QtGui.QVBoxLayout()
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
+        self.label_2 = QtGui.QLabel(self.centralwidget)
+        self.label_2.setObjectName(_fromUtf8("label_2"))
+        self.verticalLayout.addWidget(self.label_2)
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
         self.scrollArea = QtGui.QScrollArea(self.centralwidget)
@@ -128,49 +131,10 @@ class Ui_MainWindow(object):
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.horizontalLayout_6.addLayout(self.verticalLayout)
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 790, 28))
-        self.menubar.setObjectName(_fromUtf8("menubar"))
-        self.menuFile = QtGui.QMenu(self.menubar)
-        self.menuFile.setObjectName(_fromUtf8("menuFile"))
-        self.menuGroups = QtGui.QMenu(self.menubar)
-        self.menuGroups.setObjectName(_fromUtf8("menuGroups"))
-        self.menuHelp = QtGui.QMenu(self.menubar)
-        self.menuHelp.setObjectName(_fromUtf8("menuHelp"))
-        self.menuEntry = QtGui.QMenu(self.menubar)
-        self.menuEntry.setObjectName(_fromUtf8("menuEntry"))
-        MainWindow.setMenuBar(self.menubar)
+
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
         MainWindow.setStatusBar(self.statusbar)
-        self.actionNew_Database = QtGui.QAction(MainWindow)
-        self.actionNew_Database.setObjectName(_fromUtf8("actionNew_Database"))
-        self.actionOpen_Database = QtGui.QAction(MainWindow)
-        self.actionOpen_Database.setObjectName(_fromUtf8("actionOpen_Database"))
-        self.actionNew_Group = QtGui.QAction(MainWindow)
-        self.actionNew_Group.setObjectName(_fromUtf8("actionNew_Group"))
-        self.actionEdit_Group = QtGui.QAction(MainWindow)
-        self.actionEdit_Group.setObjectName(_fromUtf8("actionEdit_Group"))
-        self.actionDelete_Group = QtGui.QAction(MainWindow)
-        self.actionDelete_Group.setObjectName(_fromUtf8("actionDelete_Group"))
-        self.actionAbout = QtGui.QAction(MainWindow)
-        self.actionAbout.setObjectName(_fromUtf8("actionAbout"))
-        self.actionNew_Entry = QtGui.QAction(MainWindow)
-        self.actionNew_Entry.setObjectName(_fromUtf8("actionNew_Entry"))
-        self.actionDelete_Entry = QtGui.QAction(MainWindow)
-        self.actionDelete_Entry.setObjectName(_fromUtf8("actionDelete_Entry"))
-        self.menuFile.addAction(self.actionNew_Database)
-        self.menuFile.addAction(self.actionOpen_Database)
-        self.menuGroups.addAction(self.actionNew_Group)
-        self.menuGroups.addAction(self.actionEdit_Group)
-        self.menuGroups.addAction(self.actionDelete_Group)
-        self.menuHelp.addAction(self.actionAbout)
-        self.menuEntry.addAction(self.actionNew_Entry)
-        self.menuEntry.addAction(self.actionDelete_Entry)
-        self.menubar.addAction(self.menuFile.menuAction())
-        self.menubar.addAction(self.menuGroups.menuAction())
-        self.menubar.addAction(self.menuEntry.menuAction())
-        self.menubar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -181,10 +145,13 @@ class Ui_MainWindow(object):
         self.modelView.reset()
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(_translate("Honey Encryption", "MainWindow", None))
+        MainWindow.setWindowTitle(_translate("Honey Encryption", "Honey Encryption", None))
         self.label.setText(_translate("MainWindow",
                                       "<html><head/><body><p align=\"center\"><span style=\" font-weight:600;\">   Groups Select   </span></p></body></html>",
                                       None))
+        self.label_2.setText(_translate("MainWindow",
+                                        "<html><head/><body><p align=\"center\"><span style=\" font-size:18pt; color:#00007f;\">Honey Encryption Locker</span></p></body></html>",
+                                        None))
         self.comboBox.setItemText(0, _translate("MainWindow", "Internet", None))
         self.comboBox.setItemText(1, _translate("MainWindow", "Emails", None))
         self.comboBox.setItemText(2, _translate("MainWindow", "PINS", None))
@@ -192,22 +159,21 @@ class Ui_MainWindow(object):
         self.newRow_button.setText(_translate("MainWindow", "New Row", None))
         self.deleteRow_button.setText(_translate("MainWindow", "Delete Row", None))
         self.deleteDB_button.setText(_translate("MainWindow", "Delete Database", None))
-        self.menuFile.setTitle(_translate("MainWindow", "File", None))
-        self.menuGroups.setTitle(_translate("MainWindow", "Groups", None))
-        self.menuHelp.setTitle(_translate("MainWindow", "Help", None))
-        self.menuEntry.setTitle(_translate("MainWindow", "Entry", None))
-        self.actionNew_Database.setText(_translate("MainWindow", "New Database", None))
-        self.actionOpen_Database.setText(_translate("MainWindow", "Open Database", None))
-        self.actionNew_Group.setText(_translate("MainWindow", "New Group", None))
-        self.actionEdit_Group.setText(_translate("MainWindow", "Edit Group", None))
-        self.actionDelete_Group.setText(_translate("MainWindow", "Delete Group", None))
-        self.actionAbout.setText(_translate("MainWindow", "About", None))
-        self.actionNew_Entry.setText(_translate("MainWindow", "New Entry", None))
-        self.actionDelete_Entry.setText(_translate("MainWindow", "Delete Entry", None))
+
         self.comboBox.activated[str].connect(self.changetable)  # switches
 
-    def __del__(self):
+    # def __del__(self):
+    #     exit_update_db()
+    def closeEvent(self, event):
+        print("event")
         exit_update_db()
+        reply = QtGui.QMessageBox.question(self, 'Message', "Are you sure to quit?", QtGui.QMessageBox.Yes,
+                                           QtGui.QMessageBox.No)
+
+        if reply == QtGui.QMessageBox.Yes:
+            event.accept()
+        else:
+            event.ignore()
 
     def changetable(self, text):
         text = str(text)
